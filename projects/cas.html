@@ -1,15 +1,13 @@
-<script type="text/javascript"
-src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
 <p>
   This was a project that I started in 2016, when I was taking calculus in high school. I figured that if I spent so long on calculus homework, I should create a program that would do it for me. Instead of finishing the project in time to use it, I managed to finish three semesters of calculus before I even managed to get the program to do simple derivations. But it worked! Eventually.
 </p>
 <p>
-  The way it worked was by parsing equations as trees and then substituting sections of the equation tree until it was sufficiently simplified. For example, imagine that you wanted to find the derivative of 3x^2 with respect to X. This would produce the equation tree:
+Being my largest project, I learned a lot about Test-Driven-Development and JUnit, which has been the single thing that has really made programming easier and more enjoyable. I also learned how to keep large codebases maintainable, so that changing one thing wouldn't result in the entire codebase crashing down.  
+</p>
+<p>
+  As for the program itself, the way it worked was by parsing equations as trees and then substituting sections of the equation tree until it was sufficiently simplified. For example, imagine that you wanted to find the derivative of 3x^2 with respect to X. This would produce the equation tree:
 </p>
 <img src="./img/casInfoDia2.svg">
 <p>
-I've marked all the X's as variables by appending "_VAR" to them. This is both how the parser flags X as a variable, and because we need to distinct between different types of variables, which you'll see why later. Now, for this example we want to simplify the equation in order to get rid of the derivation operator.
-</p>
-<p>
-  Fortunately, mathematicians have done a lot of work done for us by already figuring out that some mathematical equations are actually the same as each other. As a really simple example, we know that $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+  Then, if you wanted to simplify the derivative out of the tree, you had to apply substitutions on the tree and it's sub-trees until it was removed. There's a whole lot more detail behind it, so if you want to more about how it works, you can contact me or check out the project on Github <a href="http://github.com/JRoper18/cas">here</a>.
 </p>

@@ -1,0 +1,9 @@
+<p>
+  This is one of my most recent projects, in which I made a program that would crawl a small section of the web, index it, and then a search engine which could use the indexed data in order to search for phrases and words that appeared in the crawled pages, and then rank the pages by their PageRanks.
+</p>
+<p>
+  This was a fun project for me because it was the first time I had to really worry about optimization. The web is (obviously) pretty large, so I had to really worry about the tiniest details. I learned to use a Java profiler called JProfiler to optimize every line of my code, even doing things such as manually tuning the hashCode methods of some of my objects so that accessing them from a HashMap would be faster and result in less collisions. After a few weeks of optimizing, I had a web crawler and search engine that worked as fast as I wanted it to.
+</p>
+<p>
+  For example, with the tests I ran it usually took 1 second per MB of web to index and save it to disk, and could find similar sites using this really interesting method I found called Locality-Sensitive Hashing, which allowed me to find approximately similar sites via. cosine distance without manually calculating a vector for every site and comparing it with the word vector from every other site. Search consistantly took less than a millisecond, and similar site searching took less than a second in all sites I tested.
+</p>
