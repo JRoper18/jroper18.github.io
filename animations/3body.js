@@ -1,5 +1,6 @@
 var element = document.getElementById("launch-background")
 var app = new PIXI.Application({width: element.clientWidth, height: element.clientHeight, antialias: true, transparent: true});
+app.ticker.add(delta => update(delta));
 
 function Point(x, y){
   this.x = x;
@@ -79,7 +80,6 @@ function setup(){
   }
   element.appendChild(app.view)
   app.renderer.autoResize = true;
-  app.ticker.add(delta => update(delta));
 }
 setup()
 
@@ -89,6 +89,6 @@ window.onresize = function(event){
   }
   app.renderer.resize(element.clientWidth, element.clientHeight)
 }
-element.addEventListener("dblclick", function(){
+element.addEventListener("click", function(){
   setup()
 })
