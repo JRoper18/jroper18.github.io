@@ -64,6 +64,7 @@ function update(delta){
 
 }
 function setup(){
+  app.stage.removeChildren();
   positions = [new Point(-90, -90), new Point(-90, 90), new Point(120, 90)]
   velocities = [new Point(0, 0), new Point(0, 0), new Point(0, 0)];
   colors = [0x004400, 0xFF0000, 0x0000FF]
@@ -78,9 +79,9 @@ function setup(){
   }
   element.appendChild(app.view)
   app.renderer.autoResize = true;
+  app.ticker.add(delta => update(delta));
 }
 setup()
-app.ticker.add(delta => update(delta));
 
 window.onresize = function(event){
   for(var i = 0; i<trails.length; i++){ //Clear trails or else they'll ook broken and weird.
@@ -88,3 +89,6 @@ window.onresize = function(event){
   }
   app.renderer.resize(element.clientWidth, element.clientHeight)
 }
+element.addEventListener("dblclick", function(){
+  setup()
+})
