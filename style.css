@@ -1,10 +1,16 @@
 #main {
-  height: 100vh
+  height: 100vh;
+  left: 0px;
+  top: 0px;
 }
 #intro-text {
   z-index: 1;
   position: absolute;
 }
 #launch-background{
-  height: 100%
+  height: 100vh;
+  padding-right: 0px;
+  padding-left: 0px;
+  position: absolute;
+  overflow-x: hidden;
 }

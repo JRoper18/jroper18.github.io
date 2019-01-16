@@ -4,3 +4,6 @@
 <p>
   The project was supposed to be a small game where you could draw units on the game board and they would come to life and fight each other. However, being my first project, I didn't yet know to use other people's code when I could, and decided to write an entire web-based game engine from scratch. Easy peasy. The first step was to figure out how to turn a set of user-inputted points and then determine which unit it most closely resembled. I was only dealing in black and white, so I only had to know whether a spot on the board was drawn on or not. My approach invloved taking the list of points that were drawn and resampling and comparing the points to a set of "template" points, and checking which of the templates it most closely resembled.
 </p>
+<p>
+  When I started the project my codebase was contained within a single callback function on a static site. By the end, my code was modular and my game's state was split from my rendering methods, which made it immensely easier to switch from a SVG-based rendering engine to a WebGL one when my computer crawled to a halt. I figured out how to write not just functional, but <strong>good</strong> code.
+</p>

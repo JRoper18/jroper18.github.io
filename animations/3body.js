@@ -31,7 +31,12 @@ function update(delta){
       if(i == j){
         continue;
       }
-      currentForce = currentForce.add(positions[j].sub(positions[i]).scale(masses[j]/(Math.pow(positions[j].dist(positions[i]), 2))))
+      var dist = positions[j].dist(positions[i])
+      if(dist <= 1){
+        //They're super close, so they'll probably rocket apart. For the sake of making it look cool, just ignore it this round.
+        continue;
+      }
+      currentForce = currentForce.add(positions[j].sub(positions[i]).scale(masses[j]/(Math.pow(dist, 2))))
     }
     velocities[i] = velocities[i].add(currentForce)
   }
@@ -78,5 +83,8 @@ setup()
 app.ticker.add(delta => update(delta));
 
 window.onresize = function(event){
+  for(var i = 0; i<trails.length; i++){ //Clear trails or else they'll ook broken and weird.
+    app.stage.removeChild(trails[i])
+  }
   app.renderer.resize(element.clientWidth, element.clientHeight)
 }
