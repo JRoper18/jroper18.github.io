@@ -1,5 +1,5 @@
 var element = document.getElementById("launch-background")
-var app = new PIXI.Application({width: element.clientWidth, height: element.clientHeight, transparent: true});
+var app = new PIXI.Application({width: element.clientWidth, height: element.clientHeight, antialias: true, transparent: true});
 
 function Point(x, y){
   this.x = x;
@@ -36,10 +36,25 @@ function update(delta){
     velocities[i] = velocities[i].add(currentForce)
   }
   for(var i = 0; i<velocities.length; i++){
+    var previous = new Point(planets[i].x, planets[i].y);
     var deltaPos = velocities[i].scale(delta)
     positions[i] = positions[i].add(deltaPos)
     planets[i].x = positions[i].x + (element.clientWidth / 2)
     planets[i].y = positions[i].y + (element.clientHeight / 2)
+    var line = new PIXI.Graphics();
+    line.lineStyle(4, colors[i]/2, 1);
+    line.moveTo(0, 0);
+    line.lineTo(deltaPos.x, deltaPos.y);
+    line.x = previous.x;
+    line.y = previous.y;
+    app.stage.addChild(line);
+    trails.push(line);
+    if(trails.length > 1000){
+      app.stage.removeChild(trails.shift());
+    }
+  }
+  for(var i = 0; i<trails.length; i++){
+    trails[i].alpha -= 0.003;
   }
 
 }
@@ -51,13 +66,12 @@ function setup(){
   for(var i = 0; i<positions.length; i++){
     var circle = new PIXI.Graphics();
     circle.beginFill(colors[i]);
-    circle.drawCircle(0, 0, masses[i])
+    circle.drawCircle(0, 0, masses[i]*2)
     circle.endFill()
     planets[i] = circle
     app.stage.addChild(circle)
   }
   element.appendChild(app.view)
-  console.log(app.stage)
   app.renderer.autoResize = true;
 }
 setup()
