@@ -1,6 +1,9 @@
 var element = document.getElementById("launch-background")
 var app = new PIXI.Application({width: element.clientWidth, height: element.clientHeight, antialias: true, transparent: true});
 app.ticker.add(delta => update(delta));
+app.renderer.plugins.interaction.autoPreventDefault = false;
+app.renderer.view.style.touchAction = 'auto';
+
 
 function Point(x, y){
   this.x = x;
@@ -64,9 +67,22 @@ function update(delta){
   }
 
 }
+function generatePoints() {
+  var points = []
+  var gAngle = Math.PI * (3 - Math.sqrt(5))
+  var variance = Math.PI / 3
+  var lastAngle = 0
+  var radius = 120;
+  for(var i = 0; i<3; i++){
+    var rand = (Math.random() - 0.5) * 2 //Between -1 and 1
+    lastAngle += (rand * variance) + gAngle
+    points.push(new Point(Math.cos(lastAngle) * radius, Math.sin(lastAngle) * radius))
+  }
+  return points
+}
 function setup(){
   app.stage.removeChildren();
-  positions = [new Point(-90, -90), new Point(-90, 90), new Point(120, 90)]
+  positions = generatePoints();
   velocities = [new Point(0, 0), new Point(0, 0), new Point(0, 0)];
   colors = [0x004400, 0xFF0000, 0x0000FF]
   masses = [3, 4, 5]
