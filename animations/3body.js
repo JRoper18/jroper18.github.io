@@ -81,14 +81,40 @@ function setup(){
   element.appendChild(app.view)
   app.renderer.autoResize = true;
 }
-setup()
 
 window.onresize = function(event){
-  for(var i = 0; i<trails.length; i++){ //Clear trails or else they'll ook broken and weird.
+  for(var i = 0; i<trails.length; i++){ //Clear trails or else they'll look broken and weird.
     app.stage.removeChild(trails[i])
   }
   app.renderer.resize(element.clientWidth, element.clientHeight)
 }
-element.addEventListener("click", function(){
-  setup()
+var tapedTwice = false;
+function mobileReset(){
+  if(!tapedTwice) {
+      tapedTwice = true;
+      setTimeout( function() { tapedTwice = false; }, 300 );
+      return false;
+  }
+  event.preventDefault();
+  setup();
+}
+$( document ).ready(function() {
+
+  if(window.isMobile){
+    element.addEventListener("click", function(){
+      mobileReset()
+    })
+    element.addEventListener("touchstart", function(){
+      mobileReset()
+    })
+    //Also, change the reset text.
+    document.getElementById("resetText").innerHTML = "Double-tap to reset. "
+  }
+  else{
+    element.addEventListener("click", function(){
+      setup()
+    })
+  }
 })
+
+setup()
