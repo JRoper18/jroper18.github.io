@@ -24,6 +24,11 @@
 					Click to reset
 				</div>
 			</div>
+			<div class="container-fluid align-bottom" id="scollDownAlert">
+				<div class = "row justify-content-center">
+					<h3><span class="badge badge-info"> More below </span></h3>
+				</div>
+			</div>
 		</div>
 
 		<div class="container">
@@ -82,6 +87,9 @@
 					<a class="nav-link fas fa-file fa-3x" href="./Resume.pdf"></a>
 				</li>
 			</ul>
+			<div class="row justify-content-center">
+				<span><em>What's with the animation? </em> It's a simulation of 3 gravitational bodies acting on each other, and it's here to look cool. </span>
+			</div>
 		</div>
 		<script
 		  src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -132,7 +140,6 @@
 			$( document ).ready(function() {
 			    var isMobile = window.matchMedia("only screen and (max-width: 760px)");
 			   window.isMobile = isMobile.matches;
-				 console.log(window.isMobile)
 			 });
 		</script>
 		<script src="./animations/3body.js"></script>

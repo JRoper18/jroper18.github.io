@@ -14,3 +14,7 @@
   position: absolute;
   overflow-x: hidden;
 }
+#scollDownAlert{
+  position: absolute;
+  bottom: 15px;
+}
