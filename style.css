@@ -12,7 +12,7 @@
   padding-right: 0px;
   padding-left: 0px;
   position: absolute;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 #scollDownAlert{
   position: absolute;
