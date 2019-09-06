@@ -1,0 +1,12 @@
+<p>
+  This was a project I worked on with another person as a capstone project in my Systems and Architecture class, in Spring 2019. We figured that managing barriers and pthreads was fine, but could be made simpler with just a few, simple extensions to the language of C. The idea was this: If you wanted a function to be executed asynchronously, just add "async" to the name and viola, the function will continue in it's own thread. Need to wait for a function to finish so you can grab it's computed data? Just specify it. Want to have a barrier that forces all threads to complete? Just type in "sync()".
+</p>
+<p>
+  The first feature was a very simple thread pool. When you wanted a function called asynchronously, you would just end the function with "_async" and it would add the function to a queue, where it would be picked up and executed by whichever thread was availible in the thread pool, which were constantly looking for new tasks to run. Next, we wanted to be able to "pipeline" data from one function to another, where one function's asynchronous execution would wait until it had a return value from another function. This wasn't bad either. Whenever we had a function finish running, any functions that were "listening" for it's value would get added to the threadpool, and would remember the value that was passed to them. Next, our sync() method would wait until the thread pool was out of tasks to run before allowing execution to continue. Finally, we also implemented a few helper structs such as atomic data types and asynchronous for loops.
+</p>
+<p>
+  The next part of the project was preprocessesing this weird, modified version of C. It turned out to be incredibly harder than imagined to cover all edge cases. Did you know that you can put #define statements inside of function declarations, and it's perfectly valid? Once we figured out that mess and others, we had a preprocessor that could turn our extended C files (which we called "spool" files) into valid C.
+</p>
+<p>
+  All in all, the project taught us both quite a lot about concurrency, locking, and debugging race conditions, along with how to optimize multi-threaded code. It also taught us a lot about the minute details of the C language that aren't usually used but have to be accounted for anyways. 
+</p>
