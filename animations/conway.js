@@ -22,6 +22,7 @@ function makeEmptyBoard(){
 }
 function update(delta){
   totalDelta += delta;
+  console.log(delta);
   if(totalDelta >= TICK_RATE){
     totalDelta = 0;
     //Assemble a new board.
