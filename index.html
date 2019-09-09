@@ -99,7 +99,7 @@
 				<a class="nav-link fab fa-aws fa-3x" href="https://www.certmetrics.com/amazon/public/badge.aspx?i=2&t=c&d=2019-02-16&ci=AWS00786343"></a>
 			</ul>
 			<div class="row justify-content-center">
-				<span><em>What's with the animation? </em> It's a simulation of 3 gravitational bodies acting on each other, and it's here to look cool. </span>
+				<span id = "animationExplain"></span>
 			</div>
 		</div>
 		<script
@@ -153,11 +153,23 @@
 				window.isMobile = isMobile.matches;
 				//Load a random script on reload.
 				var animations = ['conway', '3body'];
+				var anim = animations[Math.floor(Math.random() * animations.length)];
 				var scriptTag = document.createElement('script');
- 				scriptTag.src = "./animations/" + animations[Math.floor(Math.random() * animations.length)] + ".js";
+ 				scriptTag.src = "./animations/" + anim + ".js";
  				document.getElementById("loadScript").appendChild(scriptTag);
+				//Load the animation explanation into it.
+				var explanation = '';
+				switch (anim) {
+					case '3body':
+						explanation = "<em>What's with the animation? </em> It's a simulation of 3 gravitational bodies acting on each other, and it's here to look cool. "
+						break;
+					case 'conway':
+						explanation = "<em>What's with the animation? </em> It's a simulation of Conway's Game of Life. It's just neat-looking. "
+						break;
+					default:
+				}
+				document.getElementById("animationExplain").innerHTML = explanation;
 			 });
-
 		</script>
 	</body>
 </html>
