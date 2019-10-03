@@ -7,6 +7,9 @@ app.renderer.view.style.touchAction = 'auto';
 var SQUARE_SIZE = 10;
 var BOARD_WIDTH = Math.floor(element.clientWidth / SQUARE_SIZE);
 var BOARD_HEIGHT = Math.floor(element.clientHeight / SQUARE_SIZE);
+var NUM_COLORS = 50;
+
+var colorArray = generateColor("#000000", "#00ffCC", NUM_COLORS);
 
 var totalDelta = 0;
 var TICK_RATE = 5;
@@ -20,9 +23,9 @@ function makeEmptyBoard(){
   }
   return newBoard;
 }
+
 function update(delta){
   totalDelta += delta;
-  console.log(delta);
   if(totalDelta >= TICK_RATE){
     totalDelta = 0;
     //Assemble a new board.
@@ -58,9 +61,9 @@ function update(delta){
           //Dies.
           newBoard[i][j] = 0;
         }
-        else if(board[i][j] == 1) {
+        else if(board[i][j] > 0) {
           //Lives on.
-          newBoard[i][j]++;
+          newBoard[i][j] = board[i][j] + 1;
         }
         else if(sCount == 3){
           //Repopulation!
@@ -74,13 +77,19 @@ function update(delta){
     renderBoard()
   }
 }
+function ageToColor(age){
+  var boundedAge = Math.min(age, NUM_COLORS-1);
+  return parseInt(colorArray[boundedAge], 16);
+}
 function renderBoard() {
   app.stage.removeChildren()
   for(var i = 0; i<BOARD_WIDTH; i++){
     for(var j = 0; j<BOARD_HEIGHT; j++){
-      if(board[i][j] > 0){
+      var liveTime = board[i][j];
+      if(liveTime > 0){
         var newTile = new PIXI.Graphics();
-        newTile.beginFill(0xCCCCCC);
+        var color = ageToColor(liveTime)
+        newTile.beginFill(color);
         newTile.drawRect(i * SQUARE_SIZE, j*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
         newTile.endFill();
         app.stage.addChild(newTile);
@@ -139,6 +148,62 @@ $( document ).ready(function() {
   }
 })
 
+function hex (c) {
+  var s = "0123456789abcdef";
+  var i = parseInt (c);
+  if (i == 0 || isNaN (c))
+    return "00";
+  i = Math.round (Math.min (Math.max (0, i), 255));
+  return s.charAt ((i - i % 16) / 16) + s.charAt (i % 16);
+}
 
+/* Convert an RGB triplet to a hex string */
+function convertToHex (rgb) {
+  return hex(rgb[0]) + hex(rgb[1]) + hex(rgb[2]);
+}
+
+/* Remove '#' in color hex string */
+function trim (s) { return (s.charAt(0) == '#') ? s.substring(1, 7) : s }
+
+/* Convert a hex string to an RGB triplet */
+function convertToRGB (hex) {
+  var color = [];
+  color[0] = parseInt ((trim(hex)).substring (0, 2), 16);
+  color[1] = parseInt ((trim(hex)).substring (2, 4), 16);
+  color[2] = parseInt ((trim(hex)).substring (4, 6), 16);
+  return color;
+}
+
+function generateColor(colorStart,colorEnd,colorCount){
+
+	// The beginning of your gradient
+	var start = convertToRGB (colorStart);
+
+	// The end of your gradient
+	var end   = convertToRGB (colorEnd);
+
+	// The number of colors to compute
+	var len = colorCount;
+
+	//Alpha blending amount
+	var alpha = 0.0;
+
+	var saida = [];
+
+	for (i = 0; i < len; i++) {
+		var c = [];
+		alpha += (1.0/len);
+
+		c[0] = start[0] * alpha + (1 - alpha) * end[0];
+		c[1] = start[1] * alpha + (1 - alpha) * end[1];
+		c[2] = start[2] * alpha + (1 - alpha) * end[2];
+
+		saida.push(convertToHex (c));
+
+	}
+
+	return saida;
+
+}
 
 setup()
