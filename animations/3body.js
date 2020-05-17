@@ -91,7 +91,6 @@ class ThreeBody extends Animation{
       this.planets[i] = circle
       this.app.stage.addChild(circle)
     }
-    this.app.renderer.autoResize = true;
   }
   
   load(element){
@@ -99,22 +98,34 @@ class ThreeBody extends Animation{
     this.app = new PIXI.Application({width: element.clientWidth, height: element.clientHeight, antialias: true, transparent: true});
     this.app.renderer.plugins.interaction.autoPreventDefault = false;
     this.app.renderer.view.style.touchAction = 'auto';
+    this.app.renderer.autoResize = true;
     element.appendChild(this.app.view)
+    
   }
   onresize(width, height){
     for(var i = 0; i<this.trails.length; i++){ //Clear trails or else they'll look broken and weird.
-      app.stage.removeChild(this.trails[i])
+      this.app.stage.removeChild(this.trails[i])
     }
-    app.renderer.resize(width, height)
+    this.app.renderer.resize(width, height)
   }  
   mobileReset(){
-    setup();
+    this.reset();
   }
   reset(){
-    app.stage.removeChildren();
-    setup();
+    this.app.stage.removeChildren();
+    this.setup();
   }
   start(){
     this.app.ticker.add(delta => this.update(delta));
   }
+  destroy(){
+    this.app.stage.destroy(true);
+    this.element.removeChild(this.app.renderer.view);
+    this.app.renderer.destroy(true);
+  }
+  text() {
+    return "<em>What's with the animation? </em> It's a simulation of 3 gravitational bodies acting on each other, and it's here to look cool. "
+  }
 };
+
+export default ThreeBody;

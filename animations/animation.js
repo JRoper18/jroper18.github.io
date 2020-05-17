@@ -33,6 +33,9 @@ class Animation{
             return false;
         }
         event.preventDefault();
-        this.mobileReset
+        this.mobileReset();
+    }
+    text() {
+        return "Default animation text.";
     }
 }

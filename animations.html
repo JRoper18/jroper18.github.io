@@ -34,7 +34,7 @@
 					    <h5 class="card-title">Conway's Game of Life</h5>
 					    <p class="card-text">A famous cellular automata.</p>
 				    </div>
-					<button class="btn btn-primary info-button" onclick="loadAnim('conway')">More info</button>
+					<button class="btn btn-primary info-button" onclick="loadAnimLive('conway')">More info</button>
 				</div>
 				<div class="card col-md-4">
 					<img class="card-img-top" src="./img/spool.svg" alt="Spool Icon">
@@ -42,7 +42,7 @@
 					    <h5 class="card-title">3 Body Problem</h5>
 					    <p class="card-text">A physical simulation of three gravitational bodies.</p>
 					</div>
-					<button class="btn btn-primary info-button" onclick="loadAnim('3body')">More info</button>
+					<button class="btn btn-primary info-button" onclick="loadAnimLive('3body')">More info</button>
 				</div>
 			</div>
 		</div>
@@ -79,28 +79,24 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.module.js"></script>
-		<script id="loadScript">
-            function loadAnim(name){
-                var previousAnim = document.getElementById("currentAnim");
-                if(previousAnim != null){
-                    previousAnim.parentNode.removeChild(previousAnim);
-                }
-                var scriptTag = document.createElement('script');
-                scriptTag.src = "./animations/" + name + ".js";
-                scriptTag.id = "currentAnim";
-                document.getElementById("loadScript").appendChild(scriptTag); 
-            }
-			$( document ).ready(function() {
+		<script src="./animations/loadAnim.js" type="module"></script>
+	
+		<script id="loadScript" type="module">
+			import loadAnim from "./animations/loadAnim.js";
+            $( document ).ready(function() {
 				var isMobile = window.matchMedia("only screen and (max-width: 760px)");
 				window.isMobile = isMobile.matches;
 				//Load a random script on reload.
 				var animations = ['conway', '3body'];
 				var anim = animations[Math.floor(Math.random() * animations.length)];
-				var scriptTag = document.createElement('script');
-                 scriptTag.src = "./animations/" + anim + ".js";
-                 scriptTag.id = "currentAnim";
- 				document.getElementById("loadScript").appendChild(scriptTag);
-			 });
+				var explanation = '';
+				loadAnim(anim, document.getElementById("launch-background"), document.getElementById("animationExplain"));
+
+				window.loadAnimLive = function(anim){
+					loadAnim(anim, document.getElementById("launch-background"), document.getElementById("animationExplain"));
+				}
+			})
+			
 		</script>
 	</body>
 </html>

@@ -155,12 +155,13 @@ class Conway extends Animation{
     this.setup();
   }
   onresize(width, height){
-    app.renderer.resize(width, height);
-    this.BOARD_WIDTH = Math.floor(widht / this.SQUARE_SIZE);
+    this.app.renderer.resize(width, height);
+    this.BOARD_WIDTH = Math.floor(width / this.SQUARE_SIZE);
     this.BOARD_HEIGHT = Math.floor(height / this.SQUARE_SIZE);
+    this.reset();
   }
   mobileReset(){
-    setup();
+    this.reset();
   }
   hex (c) {
     var s = "0123456789abcdef";
@@ -190,7 +191,17 @@ class Conway extends Animation{
   start(){
     this.app.ticker.add(delta => this.update(delta));
   }
+  destroy(){
+    this.app.stage.destroy(true);
+    this.element.removeChild(this.app.view);
+    this.app.renderer.destroy(true);
+  }
+  text() {
+    return "<em>What's with the animation? </em> It's a simulation of Conway's Game of Life. It's just neat-looking. "
+  }
   
 
   
 };
+
+export default Conway;
