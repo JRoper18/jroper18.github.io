@@ -118,6 +118,8 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.5.1/pixi.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.module.js"></script>
+		<script src="./animations/conway.js"></script>
+		<script src="./animations/3body.js"></script>
 		<script id="loadScript">
 			function loadInfo(path, element){
 				if(document.getElementById("infoBox").innerHTML.trim().length == 0){
@@ -163,20 +165,42 @@
 				//Load a random script on reload.
 				var animations = ['conway', '3body'];
 				var anim = animations[Math.floor(Math.random() * animations.length)];
-				var scriptTag = document.createElement('script');
- 				scriptTag.src = "./animations/" + anim + ".js";
- 				document.getElementById("loadScript").appendChild(scriptTag);
-				//Load the animation explanation into it.
 				var explanation = '';
+				var animation = null;
 				switch (anim) {
 					case '3body':
+						animation = new ThreeBody();
 						explanation = "<em>What's with the animation? </em> It's a simulation of 3 gravitational bodies acting on each other, and it's here to look cool. "
 						break;
 					case 'conway':
+						animation = new Conway();
 						explanation = "<em>What's with the animation? </em> It's a simulation of Conway's Game of Life. It's just neat-looking. "
 						break;
 					default:
 				}
+				console.log("Loading animation " + anim);
+				element = document.getElementById("launch-background")
+				animation.load(element);
+				animation.setup();
+				$( document ).ready(function() {
+					if(window.isMobile){
+						element.addEventListener("click", function(){
+							animation.tap()
+						})
+						element.addEventListener("touchstart", function(){
+							animation.tap()
+						})
+						//Also, change the reset text.
+						document.getElementById("resetText").innerHTML = "Double-tap to reset. "
+					}
+					else{
+						element.addEventListener("click", function(){
+							animation.reset()
+						})
+					}
+					animation.start();
+				})
+				//Load the animation explanation into it.
 				document.getElementById("animationExplain").innerHTML = explanation;
 			 });
 		</script>
