@@ -44,6 +44,14 @@
 					</div>
 					<button class="btn btn-primary info-button" onclick="loadAnimLive('3body')">More info</button>
 				</div>
+				<div class="card col-md-4">
+					<img class="card-img-top" src="./img/spool.svg" alt="Spool Icon">
+					  <div class="card-body">
+					    <h5 class="card-title">THREE</h5>
+					    <p class="card-text"></p>
+					</div>
+					<button class="btn btn-primary info-button" onclick="loadAnimLive('squaremarkov')">More info</button>
+				</div>
 			</div>
 		</div>
 		<div class="container-fluid">
@@ -87,10 +95,10 @@
 				var isMobile = window.matchMedia("only screen and (max-width: 760px)");
 				window.isMobile = isMobile.matches;
 				//Load a random script on reload.
-				var animations = ['conway', '3body'];
+				var animations = ['conway', '3body', 'squaremarkov'];
 				var anim = animations[Math.floor(Math.random() * animations.length)];
 				var explanation = '';
-				loadAnim(anim, document.getElementById("launch-background"), document.getElementById("animationExplain"));
+				loadAnim('squaremarkov', document.getElementById("launch-background"), document.getElementById("animationExplain"));
 
 				window.loadAnimLive = function(anim){
 					loadAnim(anim, document.getElementById("launch-background"), document.getElementById("animationExplain"));

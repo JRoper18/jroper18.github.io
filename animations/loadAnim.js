@@ -1,5 +1,6 @@
 import ThreeBody from './3body.js'
 import Conway from './conway.js'
+import SquareMarkov from './squaremarkov.js';
 
 export default function loadAnim(anim, displayElement, textElement){
     var animation = null;
@@ -13,6 +14,8 @@ export default function loadAnim(anim, displayElement, textElement){
         case 'conway':
             animation = new Conway();
             break;
+        case 'squaremarkov': 
+            animation = new SquareMarkov();
         default:
     }
     console.log("Loading animation " + anim);
