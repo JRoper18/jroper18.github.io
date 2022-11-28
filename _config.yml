@@ -21,7 +21,7 @@
 title: Jack Roper's Site
 email: jackroper18@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  My personal site. Last updated Nov 25, 2022
+  My personal site. Bad takes only. 
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://jackroper.info" # the base hostname & protocol for your site, e.g. http://example.com
 # twitter_username: jekyllrb
